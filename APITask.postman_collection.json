@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "26d4044c-5c9f-479f-8ad2-c0716c1cd9a5",
+		"name": "API Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20574187",
+		"_collection_link": "https://warped-firefly-612924.postman.co/workspace/task-~60c65670-70fc-4540-830f-90c038fbbdce/collection/20574187-26d4044c-5c9f-479f-8ad2-c0716c1cd9a5?action=share&creator=20574187&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "basic Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"true\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify authenticated in response body\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.authenticated).to.eql(true);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "postman",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/basic-auth",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"basic-auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "echo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify text in response body\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"pm.expect(jsonData.args.foo1).to.eql(pm.request.url.query.get('foo1'));\r",
+							"pm.expect(jsonData.args.foo2).to.eql(pm.request.url.query.get('foo2'));\r",
+							"});\r",
+							"/*\r",
+							"pm.test(\"check text in response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"pm.expect(jsonData.args.foo2).to.eql(pm.environment.get(\"foo1\"));\r",
+							"pm.expect(jsonData.args.foo2).to.eql(pm.environment.get(\"foo2\"));\r",
+							"});\r",
+							"*/\r",
+							"pm.test(\"Verify headers in response\", function () {\r",
+							"     var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.headers[\"x-forwarded-proto\"]).to.eql(\"https\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/get?foo1={{foo1}}&foo2={{foo2}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "foo1",
+							"value": "{{foo1}}"
+						},
+						{
+							"key": "foo2",
+							"value": "{{foo2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Unauthorized\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\" : \"post\",\r\n  \t\"Password\" : \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-echo.com/basic-auth",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"basic-auth"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

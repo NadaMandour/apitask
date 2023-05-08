@@ -1,0 +1,26 @@
+{
+	"id": "5ca1f0ee-3021-4638-870c-bea8cec91c75",
+	"values": [
+		{
+			"key": "baseURL",
+			"value": "https://postman-echo.com",
+			"enabled": true
+		},
+		{
+			"key": "foo1",
+			"value": "bar1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "foo2",
+			"value": "bar2",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-05-08T17:22:09.813Z",
+	"_postman_exported_using": "Postman/10.11.1"
+}
